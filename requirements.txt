@@ -1,0 +1,11 @@
+numpy
+pickle-mixin
+streamlit
+seaborn
+pandas
+matplotlib
+scikit-learn
+tensorflow==2.13.0 
+keras
+opencv-python-headless
+requests

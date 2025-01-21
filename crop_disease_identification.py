@@ -5,25 +5,6 @@ import requests
 import time
 
 
-def model_prediction(test_image, model):
-    image = tf.keras.preprocessing.image.load_img(test_image, target_size=(128, 128))
-    input_arr = tf.keras.preprocessing.image.img_to_array(image)
-    input_arr = np.array([input_arr])  # convert single image to batch
-    predictions = model.predict(input_arr)
-    return np.argmax(predictions)  # return index of max element
-
-def load_model_from_upload():
-    model_file = st.file_uploader("Upload your model", type="h5")
-    if model_file is not None:
-        model = tf.keras.models.load_model(BytesIO(model_file.read()))
-        st.success("Model loaded successfully!")
-        return model
-    return None
-
-# In your main Streamlit app logic
-model = load_model_from_upload()
-
-
 def model_prediction(test_image):
     model = tf.keras.models.load_model("trained_plant_disease_model.keras")
     image = tf.keras.preprocessing.image.load_img(test_image, target_size=(128, 128))

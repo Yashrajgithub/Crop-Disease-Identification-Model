@@ -5,19 +5,6 @@ import requests
 import time
 
 
-def download_model(url, model_path):
-    # Send a GET request to download the model from the URL
-    response = requests.get(url)
-
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Save the model to a file
-        with open(model_path, "wb") as f:
-            f.write(response.content)
-        print(f"Model downloaded successfully to {model_path}")
-    else:
-        print(f"Failed to download the model. Status code: {response.status_code}")
-
 def model_prediction(test_image):
     model = tf.keras.models.load_model("trained_plant_disease_model.keras")
     image = tf.keras.preprocessing.image.load_img(test_image, target_size=(128, 128))
@@ -81,14 +68,6 @@ def about():
 # Set TensorFlow logging level to 'ERROR' to suppress warnings and info messages
 tf.get_logger().setLevel('ERROR')
 
-# Download the model before loading it
-model_url = "https://tinyurl.com/28av88y5"
-model_path = "trained_plant_disease_model.keras"
-download_model(model_url, model_path)
-
-# Load the model after downloading it
-model = tf.keras.models.load_model(model_path)
-
 st.set_page_config(
     page_title="Advanced Crop Disease Solutions",
     page_icon="🌾",
@@ -111,7 +90,6 @@ st.sidebar.markdown("""
 """, unsafe_allow_html=True)
 
 app_mode = st.sidebar.radio("Select View", ["HOME", "DISEASE RECOGNITION", "ABOUT", "FEEDBACK"])
-
 # Main Page
 if app_mode == "HOME":
     st.markdown("""
